@@ -40,6 +40,10 @@ module AARPCC::ActionSupport
       @description = text
     end
 
+    def get_description
+      @description
+    end
+
     
     def request_method(method)
       @request_method = method.to_s.strip.downcase.to_sym
@@ -60,6 +64,10 @@ module AARPCC::ActionSupport
       @returns = ParameterDeclaration.new(name, options)
     end
 
+    def get_returns_declaration
+      @returns
+    end
+
     
     def apply_on(action_class)
       action_class.cattr_accessor :action_declaration
@@ -73,6 +81,8 @@ module AARPCC::ActionSupport
   #
   #
   class ParameterDeclaration
+
+    attr_reader :name
 
     def initialize(name, options = {})
       @name    = name

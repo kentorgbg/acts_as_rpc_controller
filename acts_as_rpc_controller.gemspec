@@ -13,6 +13,8 @@ Gem::Specification.new do |s|
     fs << "lib/aarpcc/errors.rb"
     fs << "lib/aarpcc/validators.rb"
     fs << "lib/aarpcc/integration_test_support.rb"
+    fs << "lib/aarpcc/documentation_support.rb"
+    fs << "lib/aarpcc/service_client_generator.rb"
   end
   s.homepage    = 'https://github.com/kentorgbg/acts_as_rpc_controller'
   s.license     = 'MIT'

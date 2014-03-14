@@ -31,11 +31,10 @@ module AARPCC::ControllerSupport
     def aarpcc_invoke(action_class)
       result = Invoker.new(action_class).invoke(request, response)
       self.response_body = result.to_json
-      self.status = 200
     rescue AARPCC::Errors::Base => e
       self.response_body                       = e.message
       self.status                              = e.http_status_code
-      self.headers["X-Application-Error-Code"] = e.application_error_code 
+      self.headers["X-Application-Error-Code"] = e.application_error_code.to_s
     end
   end
 
@@ -134,9 +133,15 @@ module AARPCC::ControllerSupport
         request.params.each do |name, value|
           next if name.to_sym == :controller
           next if name.to_sym == :action
-          result[name] = ActiveSupport::JSON::decode(value)
+          result[name] = decode_param(name, value)
         end
       end
+    end
+
+    def decode_param(name, value)
+      ActiveSupport::JSON::decode(value)
+    rescue MultiJson::ParseError => e
+      raise AARPCC::Errors::BadRequest.new("'#{name}': #{e.message}")
     end
 
     def validate_param_types(decoded_params)
