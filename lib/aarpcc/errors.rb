@@ -18,12 +18,19 @@ module AARPCC::Errors
     end
   end
 
+
   class MethodNotAllowed < Base
     def initialize
       super(405, 0, "Method Not Allowed")
     end
   end
 
+
+  class NotAcceptable < Base
+    def initialize
+      super(406, 0, "Unsupported content type")
+    end
+  end
 
   class ApplicationError < Base
     def initialize(application_error_code, message)

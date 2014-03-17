@@ -31,17 +31,14 @@ module AARPCC::IntegrationTestSupport
       path           = path_for(controller_class)
       encoded_params = {}.tap{ |ep| params.each{ |k, v| ep[k] = v.to_json }} 
 
-      pp encoded_params
-
-
-      @test_instance.send(method, path, encoded_params)
+      @test_instance.send(method, path, encoded_params, {'Accept' => 'application/json'})
 
       if ((status = @test_instance.response.status) == 200)
         raw_result = @test_instance.response.body
         ActiveSupport::JSON::decode(raw_result)
       else
-        app_error = @test_instance.response.headers['X-Application-Error-Code'].to_i
-        message   = @test_instance.response.body
+        app_error = @test_instance.response.headers['X-AARPCC-Error-Code'].to_i
+        message   = @test_instance.response.headers['X-AARPCC-Error-Message'].to_i
         raise RPCError.new(status, app_error, message)
       end
     end

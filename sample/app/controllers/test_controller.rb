@@ -5,6 +5,7 @@ class TestController < ActionController::Metal
     action :echo_string_with_post, EchoStringWithPost
     action :echo_integer,          EchoInteger
     action :application_error,     ApplicationError
+    action :internal_error,        InternalError
   end
 
 end

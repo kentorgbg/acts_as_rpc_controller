@@ -26,13 +26,13 @@ class AARPCCTest < ActionDispatch::IntegrationTest
 
 
 	test "missing parameter should give 400 Bad Request" do
-		get "/test/echo_string"
+		get "/test/echo_string", {}, 'Accept' => 'application/json'
 		assert_equal 400, response.status
 	end
 
 
 	test "extra parameter should give 400 Bad Request" do
-		get "/test/echo_string", message: 'Test', extra: 'Extra'
+		get "/test/echo_string", {message: 'Test', extra: 'Extra'}, 'Accept'=>'application/json'
 		assert_equal 400, response.status
 	end
 
@@ -48,7 +48,17 @@ class AARPCCTest < ActionDispatch::IntegrationTest
 
 
 	test "malformed JSON should give 400 Bad Request" do
-		get "/test/echo_string", message: "test" # Not JSON encoded
+		get "/test/echo_string", {message: "test"}, 'Accept'=>'application/json' # Not JSON encoded
 		assert_equal 400, response.status
 	end
+
+
+  test "internal error" do
+    begin
+      rpc :internal_error
+      fail  
+    rescue AARPCC::IntegrationTestSupport::RPCError => e
+      assert_equal 500, e.http_status_code
+    end
+  end
 end

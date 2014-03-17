@@ -3,7 +3,6 @@ ActionController::Metal.class_eval do
   include AARPCC::DocumentationSupport
 end
 
-
 Object.class_eval do
   include AARPCC::ActionSupport
 end
