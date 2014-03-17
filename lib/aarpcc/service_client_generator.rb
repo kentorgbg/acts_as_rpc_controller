@@ -20,7 +20,7 @@ class AARPCC::ServiceClientGenerator
   def process_controller_class(controller_class, io)
     decl = controller_class.aarpcc_declaration
     decl.action_classes.each do |name, action_class|
-      io << "\n\n" << process_action(controller_class, name, action_class.action_declaration)
+      io << "\n\n" << process_action(controller_class, name, action_class.aarpcc_declaration)
     end
   end
 

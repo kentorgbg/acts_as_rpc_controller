@@ -115,7 +115,7 @@ module AARPCC::DocumentationSupport
     def render_action_documentation_on(html, name, action_class)
       html.li{ html.h3{ html.text name } }
       html.ul do
-        decl = action_class.action_declaration
+        decl = action_class.aarpcc_declaration
         html.li{ html.text "<strong>Description:</strong> #{decl.get_description}" }
         html.li{ html.text "<strong>Request Method:</strong> #{decl.get_request_method.to_s.upcase}" }
         html.li do

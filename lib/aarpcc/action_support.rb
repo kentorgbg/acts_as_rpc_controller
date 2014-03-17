@@ -70,8 +70,8 @@ module AARPCC::ActionSupport
 
     
     def apply_on(action_class)
-      action_class.cattr_accessor :action_declaration
-      action_class.action_declaration = self
+      action_class.cattr_accessor :aarpcc_declaration
+      action_class.aarpcc_declaration = self
       action_class.class_eval{ attr_accessor :params }
     end
   end

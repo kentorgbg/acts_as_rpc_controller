@@ -51,7 +51,7 @@ module AARPCC::IntegrationTestSupport
       @action_declarations ||= {}.with_indifferent_access.tap do |decls|
         rpc_controller_classes.each do |controller_class|
           controller_class.aarpcc_declaration.action_classes.each do |action_name, action_class|
-            decls[action_name] = [controller_class, action_class.action_declaration]
+            decls[action_name] = [controller_class, action_class.aarpcc_declaration]
           end
         end
       end

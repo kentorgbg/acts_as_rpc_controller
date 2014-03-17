@@ -69,6 +69,6 @@ class AARPCC::Invoker
 
 
   def action_declaration
-    @action_class.action_declaration
+    @action_class.aarpcc_declaration
   end
 end
