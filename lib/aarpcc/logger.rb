@@ -32,7 +32,7 @@ class AARPCC::Logger
 		logger   = @controller_instance.class.aarpcc_declaration.access_logger
 		error    = @controller_instance.headers['X-AARPCC-Error-Message']
 		message  = [].tap do |m|
-			m << Time.now.strftime("%Y-%m-%d %H:%M:%S.%L%z")
+			#m << Time.now.strftime("%Y-%m-%d %H:%M:%S.%L%z")
 			m << @controller_instance.status
 			m << sprintf("%.3fs", total)
 			m << "#{request.request_method} #{request.path}"
@@ -49,7 +49,6 @@ class AARPCC::Logger
 		logger   = @controller_instance.class.aarpcc_declaration.critical_logger
 		logger.error <<-STR
 ### INTERNAL ERROR ############################
-Timestamp:  #{Time.now.strftime("%Y-%m-%d %H:%M:%S.%L%z")}
 Request:    #{request.request_method} #{request.path}
 Error:      #{e.class.to_s} - #{e.message}
 Parameters: #{request.parameters.inspect}

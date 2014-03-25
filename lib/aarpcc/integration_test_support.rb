@@ -27,6 +27,8 @@ module AARPCC::IntegrationTestSupport
 
     def invoke(params)
       controller_class, action_declaration = action_declarations[@action_name]
+      raise "unknown action '#{@action_name}'" if action_declaration.nil?
+
       method         = action_declaration.get_request_method
       path           = path_for(controller_class)
       encoded_params = {}.tap{ |ep| params.each{ |k, v| ep[k] = v.to_json }} 
@@ -38,7 +40,7 @@ module AARPCC::IntegrationTestSupport
         ActiveSupport::JSON::decode(raw_result)
       else
         app_error = @test_instance.response.headers['X-AARPCC-Error-Code'].to_i
-        message   = @test_instance.response.headers['X-AARPCC-Error-Message'].to_i
+        message   = @test_instance.response.headers['X-AARPCC-Error-Message']
         raise RPCError.new(status, app_error, message)
       end
     end

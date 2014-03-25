@@ -63,7 +63,7 @@ class AARPCC::Invoker
   def validate_param_types
     decoded_params.each do |name, value|
       pdecl = action_declaration.parameter_declarations[name]
-      pdecl.validator.validate(name, value)
+      pdecl.validator.new(name, value).validate
     end
   end
 

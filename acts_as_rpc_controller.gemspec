@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
     fs << "lib/aarpcc/controller_support.rb"
     fs << "lib/aarpcc/action_support.rb"
     fs << "lib/aarpcc/errors.rb"
-    fs << "lib/aarpcc/validators.rb"
+    fs << "lib/aarpcc/types.rb"
     fs << "lib/aarpcc/integration_test_support.rb"
     fs << "lib/aarpcc/documentation_support.rb"
     fs << "lib/aarpcc/service_client_generator.rb"

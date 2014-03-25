@@ -32,8 +32,14 @@ class ___CLASS_NAME___
 
 
   def post(path, params)
-    uri       = URI("http://#{@host}#{path}")
-    response  = Net::HTTP.post_form(uri, json_encode_values(params))
+    uri     = URI("http://#{@host}#{path}")
+    request = Net::HTTP::Post.new(uri)
+    request.set_form_data(json_encode_values(params))
+
+    response = Net::HTTP.start(uri.hostname, uri.port) do |http|
+      request['Accept'] = 'application/json'
+      http.request(request)
+    end
     handle_response(response)
   end
 
@@ -43,6 +49,18 @@ class ___CLASS_NAME___
     uri      = URI("http://#{@host}#{path}?#{qstring}")
     response = Net::HTTP.get_response(uri)
     handle_response(response)
+  end
+
+
+  def get(path, params)
+    qstring = encode_params(params)
+    uri     = URI("http://#{@host}#{path}?#{qstring}")
+    Net::HTTP.start(uri.host, uri.port) do |http|
+      request           = Net::HTTP::Get.new(uri)
+      request['Accept'] = 'application/json'
+      response          = http.request(request)
+      handle_response(response)
+    end
   end
 
 

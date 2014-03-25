@@ -90,8 +90,7 @@ module AARPCC::ActionSupport
     end
 
     def validator
-      klass = @options[:validate_with] || AARPCC::Validators::String
-      klass.new
+      @options[:validate_with] || AARPCC::Types::String
     end
   end
 

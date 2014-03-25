@@ -1,6 +1,6 @@
 module AARPCC; end
 
-require 'aarpcc/validators.rb'
+require 'aarpcc/types.rb'
 require 'aarpcc/errors.rb'
 require 'aarpcc/action_support.rb'
 require 'aarpcc/logger.rb'
